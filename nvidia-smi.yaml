@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nvidia-smi
+spec:      
+  containers:
+  - image: nvidia/cuda
+    name: nvidia-smi
+    args:
+      - nvidia-smi
+    resources:
+      limits:
+        alpha.kubernetes.io/nvidia-gpu: 1
+      requests:
+        alpha.kubernetes.io/nvidia-gpu: 1  
+    volumeMounts:
+    - mountPath: /usr/bin/
+      name: binaries
+    - mountPath: /usr/lib/x86_64-linux-gnu
+      name: libraries
+    securityContext:
+      privileged: true
+  volumes:
+  - name: binaries
+    hostPath:
+      path: /usr/bin/
+  - name: libraries
+    hostPath:
+      path: /usr/lib/x86_64-linux-gnu
