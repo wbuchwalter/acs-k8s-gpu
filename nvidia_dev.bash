@@ -1,5 +1,9 @@
 #!/bin/bash
 
+sh /tools/NVIDIA-Linux-x86_64-375.20.run -a -s
+nvidia-smi
+sudo systemctl restart kubelet.service
+
 /sbin/modprobe nvidia
 
 if [ "$?" -eq 0 ]; then
